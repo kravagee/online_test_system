@@ -1,10 +1,14 @@
 RU:
-    Система для онлайн тестирования, зарегистрированные пользователи могут создавать свои тесты, либо проходить уже
+        Система для онлайн тестирования, зарегистрированные пользователи могут создавать свои тесты, либо проходить уже
     созданные другими пользователями тесты. Тесты могут быть разными: с выбором ответа, с кратким ответом, с установлением
-    соответствия. Создатель теста сможет просматривать результаты всех пользователей. Пользователь сможет просматривать тесты,
-    которые он прошёл и просматривать правильные ответы на эти тесты.
+    соответствия. К тестам можно будет прикреплять картинки. Создатель теста сможет просматривать результаты всех пользователей.
+    Пользователь сможет просматривать тесты, которые он прошёл и просматривать правильные ответы на эти тесты.
+        Чтобы пройти уже созданные тесты можно воспользоваться поиском по названию и по популярности. Самые популярные тесты
+    будут высвечиваться первыми. Так же у каждого пользователя будет личный кабинет со статистикой по созданным и пройденным тестам.
 EN:
-    An online testing system, registered users can create their own tests, or take tests already
-    created by other users. The tests can be different: with a choice of answer, with a short answer, with the establishment
-    of compliance. The creator of the test will be able to view the results of all users. The user will be able to view
-    the tests that he has passed and view the correct answers to these tests.
+        An online testing system, registered users can create their own tests, or take tests already created by other users.
+     The tests can be different: with a choice of answer, with a short answer, with the establishment of compliance. You
+     can attach pictures to the tests. The creator of the test will be able to view the results of all users.
+     The user will be able to view the tests that he has passed and view the correct answers to these tests.
+        To pass the tests that have already been created, you can use the search by name and popularity. The most popular tests
+     will be displayed first. Also, each user will have a personal account with statistics on created and passed tests.
