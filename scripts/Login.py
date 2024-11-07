@@ -4,6 +4,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import expansion
+import MainWindow
 
 class Login(QWidget):
     def __init__(self):
@@ -26,6 +27,10 @@ class Login(QWidget):
                 self.statusbar.setText('Неверный пароль!')
         except:
             self.statusbar.setText('Пользователь не найден!')
+        con.close()
+        self.mainwind = MainWindow.MainWindow()
+        self.hide()
+        self.mainwind.show()
 
     def back(self):
         self.author = AuthorizationWindow.AuthorizationWindow()

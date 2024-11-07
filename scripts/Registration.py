@@ -4,6 +4,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import expansion
+import MainWindow
 
 class Registration(QWidget):
     def __init__(self):
@@ -28,6 +29,9 @@ class Registration(QWidget):
                             f'"{expansion.hasher.hash(self.password.text())}")')
                 con.commit()
                 con.close()
+                self.mainwind = MainWindow.MainWindow()
+                self.hide()
+                self.mainwind.show()
 
 
     def back(self):
