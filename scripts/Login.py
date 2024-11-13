@@ -27,8 +27,9 @@ class Login(QWidget):
                 self.statusbar.setText('Неверный пароль!')
         except:
             self.statusbar.setText('Пользователь не найден!')
+        id = cur.execute(f'''SELECT id FROM users WHERE username={log}''').fetchone()[0]
         con.close()
-        self.mainwind = MainWindow.MainWindow()
+        self.mainwind = MainWindow.MainWindow(id)
         self.hide()
         self.mainwind.show()
 

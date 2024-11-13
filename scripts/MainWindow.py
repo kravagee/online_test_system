@@ -7,9 +7,10 @@ import CreateWindow
 import expansion
 
 class MainWindow(QWidget):
-    def __init__(self):
+    def __init__(self, userid):
         super().__init__()
         uic.loadUi('../ui/Main.ui', self)
+        self.id = userid
 
         self.logoutbtn.clicked.connect(self.logout)
         self.go_to_catalog.clicked.connect(self.go_to_catalog_func)
@@ -25,7 +26,7 @@ class MainWindow(QWidget):
         pass
 
     def go_to_create_tests_func(self):
-        self.crt = CreateWindow.CreateWindow()
+        self.crt = CreateWindow.CreateWindow(self.id)
         self.hide()
         self.crt.show()
 

@@ -44,8 +44,7 @@
    </property>
    <property name="text">
     <string>Добавить
- картинку
- (необязательно)</string>
+ картинку</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -87,10 +86,10 @@
   <widget class="QLabel" name="Image">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>30</y>
-     <width>461</width>
-     <height>211</height>
+     <x>160</x>
+     <y>40</y>
+     <width>356</width>
+     <height>200</height>
     </rect>
    </property>
    <property name="text">
@@ -183,6 +182,95 @@
     <font>
      <pointsize>10</pointsize>
     </font>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="testname">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>0</y>
+     <width>361</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>151</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Название теста:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="statusbar">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>250</y>
+     <width>81</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>255</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>
