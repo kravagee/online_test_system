@@ -1,7 +1,6 @@
 import sqlite3
 
 from PyQt6 import uic
-from PIL.ImageQt import QImage
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QFileDialog
 import expansion
