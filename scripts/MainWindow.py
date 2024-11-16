@@ -3,6 +3,7 @@ import sqlite3
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
+import CatalogWindow
 import CreateWindow
 import expansion
 
@@ -23,7 +24,9 @@ class MainWindow(QWidget):
         self.auth.show()
 
     def go_to_catalog_func(self):
-        pass
+        self.cat = CatalogWindow.CatalogWindow(self.id)
+        self.hide()
+        self.cat.show()
 
     def go_to_create_tests_func(self):
         self.crt = CreateWindow.CreateWindow(self.id)

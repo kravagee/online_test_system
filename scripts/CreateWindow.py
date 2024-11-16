@@ -6,6 +6,7 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QFileDialog
 import expansion
 import MainWindow
+import datetime as dt
 
 class CreateWindow(QWidget):
     def __init__(self, userid):
@@ -36,23 +37,31 @@ class CreateWindow(QWidget):
             self.pixmap = QPixmap(image).scaled(self.Image.width(), self.Image.height())
             self.Image.setPixmap(self.pixmap)
             print(self.tasks)
+            self.statusbar.setText('')
         except KeyError:
             self.mainwin = MainWindow.MainWindow(self.id)
             self.hide()
             self.mainwin.show()
 
     def end_edit(self):
+        if self.question.toPlainText() and self.anwser.toPlainText():
+            self.tasks[self.counter] = (self.question.toPlainText(), self.anwser.toPlainText(), self.fname)
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
+        query = cur.execute(f'''SELECT * FROM tests WHERE testname = "{self.testname.text()}"''').fetchall()
+        if query:
+            self.statusbar.setText('Такое имя теста уже занято!')
         tasks_for_db = ', '.join(['*__*'.join(i) for i in self.tasks.values()])
-        query = f'''INSERT INTO tests ("testname", "tasks", creator) 
-        VALUES ("{self.testname.text()}", "{tasks_for_db}", {self.id})'''
+        query = f'''INSERT INTO tests ("testname", "tasks", creator, views, "users_anwsers", "create_date") 
+        VALUES ("{self.testname.text()}", "{tasks_for_db}", {self.id}, {0}, "", 
+        "{dt.datetime.now().strftime("%d.%m.%Y")}")'''
         cur.execute(query)
         con.commit()
         con.close()
         self.mainwin = MainWindow.MainWindow(self.id)
         self.hide()
         self.mainwin.show()
+        print(tasks_for_db)
 
     def next_task(self):
         try:
@@ -62,5 +71,6 @@ class CreateWindow(QWidget):
             self.Image.clear()
             self.counter += 1
             self.task_count.display(self.counter)
+            self.statusbar.setText('')
         except:
             self.statusbar.setText('Нет картинки!')
