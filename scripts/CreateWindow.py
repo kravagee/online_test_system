@@ -51,7 +51,7 @@ class CreateWindow(QWidget):
         query = cur.execute(f'''SELECT * FROM tests WHERE testname = "{self.testname.text()}"''').fetchall()
         if query:
             self.statusbar.setText('Такое имя теста уже занято!')
-        tasks_for_db = ', '.join(['*__*'.join(i) for i in self.tasks.values()])
+        tasks_for_db = '??///?? '.join(['!!!!---!!!!'.join(i) for i in self.tasks.values()])
         query = f'''INSERT INTO tests ("testname", "tasks", creator, views, "users_anwsers", "create_date") 
         VALUES ("{self.testname.text()}", "{tasks_for_db}", {self.id}, {0}, "", 
         "{dt.datetime.now().strftime("%d.%m.%Y")}")'''
