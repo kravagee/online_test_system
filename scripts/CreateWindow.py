@@ -7,6 +7,7 @@ import expansion
 import MainWindow
 import datetime as dt
 
+
 class CreateWindow(QWidget):
     def __init__(self, userid):
         super().__init__()
@@ -43,24 +44,27 @@ class CreateWindow(QWidget):
             self.mainwin.show()
 
     def end_edit(self):
-        if self.question.toPlainText() and self.anwser.toPlainText():
+        if self.question.toPlainText() != '' and self.anwser.toPlainText() != '':
             self.tasks[self.counter] = (self.question.toPlainText(), self.anwser.toPlainText(), self.fname)
-        con = sqlite3.connect('../db/users.db')
-        cur = con.cursor()
-        query = cur.execute(f'''SELECT * FROM tests WHERE testname = "{self.testname.text()}"''').fetchall()
-        if query:
-            self.statusbar.setText('Такое имя теста уже занято!')
-        tasks_for_db = '??///?? '.join(['!!!!---!!!!'.join(i) for i in self.tasks.values()])
-        query = f'''INSERT INTO tests ("testname", "tasks", creator, views, "users_anwsers", "create_date") 
-        VALUES ("{self.testname.text()}", "{tasks_for_db}", {self.id}, {0}, "", 
-        "{dt.datetime.now().strftime("%d.%m.%Y")}")'''
-        cur.execute(query)
-        con.commit()
-        con.close()
-        self.mainwin = MainWindow.MainWindow(self.id)
-        self.hide()
-        self.mainwin.show()
-        print(tasks_for_db)
+            con = sqlite3.connect('../db/users.db')
+            cur = con.cursor()
+            query = cur.execute(f'''SELECT * FROM tests WHERE testname = "{self.testname.text()}"''').fetchall()
+            if query:
+                self.statusbar.setText('Такое имя теста уже занято!')
+            tasks_for_db = '??///?? '.join(['!!!!---!!!!'.join(i) for i in self.tasks.values()])
+            query = f'''INSERT INTO tests ("testname", "tasks", creator, views, "create_date", 
+                    "users_who_passed") 
+                    VALUES ("{self.testname.text()}", "{tasks_for_db}", {self.id}, {0}, 
+                    "{dt.datetime.now().strftime("%d.%m.%Y")}", "")'''
+            cur.execute(query)
+            con.commit()
+            con.close()
+            self.mainwin = MainWindow.MainWindow(self.id)
+            self.hide()
+            self.mainwin.show()
+            print(tasks_for_db)
+        else:
+            self.statusbar.setText('Недостаточно данных!')
 
     def next_task(self):
         try:
@@ -72,4 +76,4 @@ class CreateWindow(QWidget):
             self.task_count.display(self.counter)
             self.statusbar.setText('')
         except:
-            self.statusbar.setText('Нет картинки!')
+            self.statusbar.setText('Недостаточно данных!')

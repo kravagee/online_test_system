@@ -27,9 +27,9 @@ class Registration(QWidget):
             else:
                 cur.execute(f'INSERT INTO users ("username", "hash_password") VALUES ("{log}", '
                             f'"{expansion.hasher.hash(self.password.text())}")')
+                id = cur.execute(f'''SELECT id FROM users WHERE username="{log}"''').fetchall()[0]
                 con.commit()
                 con.close()
-                id = cur.execute(f'''SELECT id FROM users WHERE username={log}''').fetchall()[0]
                 self.mainwind = MainWindow.MainWindow(id)
                 self.hide()
                 self.mainwind.show()

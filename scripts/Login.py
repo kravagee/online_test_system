@@ -21,17 +21,17 @@ class Login(QWidget):
             log, pas = cur.execute(f'SELECT username, hash_password FROM users'
                                    f' WHERE username="{self.username.text()}"').fetchone()
             try:
+                print(pas)
                 if expansion.hasher.verify(pas, self.password.text()):
-                    pass
+                    id = cur.execute(f'''SELECT id FROM users WHERE username="{log}"''').fetchone()[0]
+                    con.close()
+                    self.mainwind = MainWindow.MainWindow(id)
+                    self.hide()
+                    self.mainwind.show()
             except:
                 self.statusbar.setText('Неверный пароль!')
         except:
             self.statusbar.setText('Пользователь не найден!')
-        id = cur.execute(f'''SELECT id FROM users WHERE username={log}''').fetchone()[0]
-        con.close()
-        self.mainwind = MainWindow.MainWindow(id)
-        self.hide()
-        self.mainwind.show()
 
     def back(self):
         self.author = AuthorizationWindow.AuthorizationWindow()
