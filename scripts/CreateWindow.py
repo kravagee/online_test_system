@@ -1,18 +1,17 @@
 import sqlite3
-import time
 
 from PyQt6 import uic
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QFileDialog, QMessageBox
-import expansion
 import MainWindow
 import datetime as dt
+import CreateWindowUI
 
 
-class CreateWindow(QWidget):
+class CreateWindow(QWidget, CreateWindowUI.Ui_Form):
     def __init__(self, userid):
         super().__init__()
-        uic.loadUi('../ui/CreateWindow.ui', self)
+        self.setupUi(self)
         self.counter = 1
         self.task_count.display(self.counter)
         self.id = userid

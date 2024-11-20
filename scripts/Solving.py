@@ -2,19 +2,18 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QWidget, QFileDialog
-import expansion
-import MainWindow
+from PyQt6.QtWidgets import QWidget
 import datetime as dt
 import ResultWindow
+import TaskUI
 
 USER_ANWSERS = dict()
 
 
-class Task(QWidget):
+class Task(QWidget, TaskUI.Ui_Form):
     def __init__(self, question):
         super().__init__()
-        uic.loadUi('../ui/Task.ui', self)
+        self.setupUi(self)
 
         self.question = question
         self.questiontext.setText(question[0])

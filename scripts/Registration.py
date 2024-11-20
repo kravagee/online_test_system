@@ -5,11 +5,12 @@ from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import expansion
 import MainWindow
+import RegistrationUI
 
-class Registration(QWidget):
+class Registration(QWidget, RegistrationUI.Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('../ui/Registration.ui', self)
+        self.setupUi(self)
 
         self.register_button.clicked.connect(self.register)
         self.back_button.clicked.connect(self.back)

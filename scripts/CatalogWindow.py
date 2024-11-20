@@ -1,16 +1,15 @@
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QWidget, QFileDialog, QTableWidgetItem, QPushButton
-import expansion
+from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton
 import MainWindow
 import Solving
+import CatalogUI
 
-
-class CatalogWindow(QWidget):
+class CatalogWindow(QWidget, CatalogUI.Ui_Form):
     def __init__(self, userid):
         super().__init__()
-        uic.loadUi('../ui/CatalogWindow.ui', self)
+        self.setupUi(self)
         self.id = userid
 
         con = sqlite3.connect('../db/users.db')

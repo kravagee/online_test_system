@@ -1,17 +1,15 @@
-import sqlite3
-
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import CatalogWindow
 import CreateWindow
 import PrivateOffice
-import expansion
+import MainUI
 
-class MainWindow(QWidget):
+class MainWindow(QWidget, MainUI.Ui_Form):
     def __init__(self, userid):
         super().__init__()
-        uic.loadUi('../ui/Main.ui', self)
+        self.setupUi(self)
         self.id = userid
 
         self.logoutbtn.clicked.connect(self.logout)

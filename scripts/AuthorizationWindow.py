@@ -1,15 +1,15 @@
-import sqlite3
 import Registration
 import Login
+import AuthorizationUI
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 
 
-class AuthorizationWindow(QWidget):
+class AuthorizationWindow(QWidget, AuthorizationUI.Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('../ui/Authorization.ui', self)
+        self.setupUi(self)
 
         self.loginbtn.clicked.connect(self.login)
         self.registerbtn.clicked.connect(self.register)

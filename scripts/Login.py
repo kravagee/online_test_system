@@ -5,11 +5,12 @@ from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import expansion
 import MainWindow
+import LoginUI
 
-class Login(QWidget):
+class Login(QWidget, LoginUI.Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('../ui/Login.ui', self)
+        self.setupUi(self)
 
         self.login.clicked.connect(self.login_func)
         self.back_button.clicked.connect(self.back)

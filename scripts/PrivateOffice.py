@@ -1,16 +1,16 @@
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QWidget, QFileDialog, QTableWidgetItem, QPushButton
+from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton
 import AuthorizationWindow
-import expansion
 import MainWindow
 import PrivateStats
+import PrivateOfficeUI
 
-class PrivateOffice(QWidget):
+class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
     def __init__(self, userid):
         super().__init__()
-        uic.loadUi('../ui/PrivateOffice.ui', self)
+        self.setupUi(self)
         self.id = userid
 
         con = sqlite3.connect('../db/users.db')

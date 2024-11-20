@@ -1,19 +1,16 @@
 import sqlite3
-from idlelib.configdialog import changes
 
 from PyQt6 import uic
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QWidget, QFileDialog, QTableWidgetItem, QPushButton
+from PyQt6.QtWidgets import QWidget,QTableWidgetItem
 
 import MainWindow
-import expansion
 import PrivateOffice
+import StatisticFirstUI
 
-
-class StatsPass(QWidget):
+class StatsPass(QWidget, StatisticFirstUI.Ui_Form):
     def __init__(self, userid, testname):
         super().__init__()
-        uic.loadUi('../ui/StatisticFirst.ui', self)
+        self.setupUi(self)
         self.id = userid
 
         con = sqlite3.connect('../db/users.db')

@@ -1,17 +1,14 @@
 import sqlite3
-from idlelib.configdialog import changes
 
 from PyQt6 import uic
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtWidgets import QWidget, QFileDialog
+from PyQt6.QtWidgets import QWidget
 import MainWindow
-import expansion
+import StatisticFirstUI
 
-
-class ResultWindow(QWidget):
+class ResultWindow(QWidget, StatisticFirstUI.Ui_Form):
     def __init__(self, userid, anwsers, tasks, testname):
         super().__init__()
-        uic.loadUi('../ui/StatisticFirst.ui', self)
+        self.setupUi(self)
         self.id = userid
         self.testname = testname
 
