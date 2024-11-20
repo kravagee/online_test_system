@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import CatalogWindow
 import CreateWindow
+import PrivateOffice
 import expansion
 
 class MainWindow(QWidget):
@@ -34,4 +35,6 @@ class MainWindow(QWidget):
         self.crt.show()
 
     def go_to_private_office_func(self):
-        pass
+        self.prvt = PrivateOffice.PrivateOffice(self.id)
+        self.hide()
+        self.prvt.show()

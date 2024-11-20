@@ -66,7 +66,8 @@ class Solving(QWidget):
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
         testid = list(cur.execute(f'''SELECT id FROM tests WHERE testname = {self.testname}''').fetchone())[0]
-        cur.execute(f'''INSERT INTO tests_solutions (testid, userid, "anwsers", "date") VALUES ({testid}, {self.id}, 
+        cur.execute(f'''INSERT INTO tests_solutions (testid, userid, "wrong_anwsers", "right_anwsers", 
+        "anwsers", "date") VALUES ({testid}, {self.id}, "", "",
         "{user_anws}", "{dt.datetime.now().strftime("%d.%m.%Y")}")''')
 
         users_who = list(cur.execute(f'''SELECT users_who_passed FROM tests 
@@ -75,5 +76,6 @@ class Solving(QWidget):
         new_users_who = users_who + ', ' + str(self.id)
 
         cur.execute(f'''UPDATE tests SET users_who_passed="{new_users_who}" WHERE testname ="{self.testname}"''')
+        cur.execute(f'''UPDATE tests SET views = views + 1 WHERE testname = "{self.testname}"''')
         con.commit()
         con.close()

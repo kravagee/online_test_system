@@ -14,27 +14,32 @@ class ResultWindow(QWidget):
         uic.loadUi('../ui/StatisticFirst.ui', self)
         self.id = userid
 
-        self.right_count = 0
-        self.wrong_count = 0
+        self.rights = []
         self.wrongs = []
 
         try:
             for i in tasks:
                 if anwsers[i[0]]:
                     if anwsers[i[0]] == i[1]:
-                        self.right_count += 1
+                        self.rights.append(tasks.index(i) + 1)
                     else:
-                        self.wrong_count += 1
                         self.wrongs.append(tasks.index(i) + 1)
                 else:
-                    self.wrong_count += 1
                     self.wrongs.append(tasks.index(i) + 1)
 
-            self.wrong.setText(str(self.wrong_count))
-            self.right.setText(str(self.right_count))
+            self.wrong.setText(str(len([str(i) for i in self.wrongs])))
+            self.right.setText(str(len([str(i) for i in self.rights])))
             self.wrongNumbers.setText(', '.join([str(i) for i in self.wrongs]))
         except:
             pass
+
+        con = sqlite3.connect('../db/users.db')
+        cur = con.cursor()
+        query = f'''UPDATE test_solutions SET wrong_anwsers = "{"".join(self.wrongs)}" AND 
+        right_anwsers = "{"".join(self.rights)}"'''
+        cur.execute(query)
+        con.commit()
+        con.close()
 
         self.backbtn.clicked.connect(self.back)
 
