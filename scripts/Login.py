@@ -15,6 +15,7 @@ class Login(QWidget):
         self.back_button.clicked.connect(self.back)
 
     def login_func(self):
+        """Метод для входа"""
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
         try:
@@ -34,6 +35,7 @@ class Login(QWidget):
             self.statusbar.setText('Пользователь не найден!')
 
     def back(self):
+        """Метод для перенаправления на первое окно"""
         self.author = AuthorizationWindow.AuthorizationWindow()
         self.author.show()
         self.hide()

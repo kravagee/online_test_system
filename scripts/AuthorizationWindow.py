@@ -15,11 +15,13 @@ class AuthorizationWindow(QWidget):
         self.registerbtn.clicked.connect(self.register)
 
     def register(self):
+        """Метод для перенаправления на окно с регистрацией"""
         self.reg = Registration.Registration()
         self.reg.show()
         self.hide()
 
     def login(self):
+        """Метод для перенаправления на окно с входом"""
         self.log = Login.Login()
         self.log.show()
         self.hide()

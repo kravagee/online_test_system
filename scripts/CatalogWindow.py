@@ -6,6 +6,7 @@ import expansion
 import MainWindow
 import Solving
 
+
 class CatalogWindow(QWidget):
     def __init__(self, userid):
         super().__init__()
@@ -30,7 +31,7 @@ class CatalogWindow(QWidget):
                     data.remove(data_cop[i])
             else:
                 result.append(row)
-        self.update_table(result, cur)
+        self.update_table(result)
         self.id = userid
         con.close()
 
@@ -39,6 +40,7 @@ class CatalogWindow(QWidget):
         self.backbtn.clicked.connect(self.back)
 
     def search_by_name(self):
+        """Метод для поиска тестов по названию"""
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
         try:
@@ -55,12 +57,13 @@ class CatalogWindow(QWidget):
                         result.append(row)
                 else:
                     result.append(row)
-            self.update_table(result, cur)
+            self.update_table(result)
         except:
             self.statusbar.setText('Ничего не найдено!')
         con.close()
 
     def sorting(self):
+        """Метод для сортировки тестов по популярности, названию и дате создания"""
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
         if self.sortby.currentText() == 'Популярность':
@@ -84,7 +87,8 @@ class CatalogWindow(QWidget):
 
         con.close()
 
-    def update_table(self, data, cur):
+    def update_table(self, data):
+        """Метод для заполнения таблицы"""
         if len(data) > 0:
             self.tableWidget.setRowCount(len(data))
             self.tableWidget.setColumnCount(len(data[0]) + 1)
@@ -99,11 +103,13 @@ class CatalogWindow(QWidget):
             self.tableWidget.setHorizontalHeaderLabels(self.titles)
 
     def go_to(self, r, c):
+        """Метод для перенаправления на окно с решением выбранного теста"""
         self.solve = Solving.Solving(self.id, self.tableWidget.item(c, 0).text())
         self.hide()
         self.solve.show()
 
     def back(self):
+        """Метод для перенаправления на главное"""
         self.mainwin = MainWindow.MainWindow(self.id)
         self.hide()
         self.mainwin.show()

@@ -24,6 +24,7 @@ class Task(QWidget):
         self.savebtn.clicked.connect(self.save)
 
     def save(self):
+        """Метод для сохранения ответов пользователя в словарь"""
         USER_ANWSERS[self.question[0]] = self.anwser.toPlainText()
 
 
@@ -51,13 +52,20 @@ class Solving(QWidget):
 
 
     def back(self):
+        """Метод для завершения теста"""
         self.db_work()
-        self.res = ResultWindow.ResultWindow(self.id, USER_ANWSERS, self.tasks)
+        self.res = ResultWindow.ResultWindow(self.id, USER_ANWSERS, self.tasks, self.testname)
+        USER_ANWSERS.clear()
         self.hide()
         self.res.show()
 
     def db_work(self):
+        """Метод для работы с базой данных при завершении теста"""
         user_anws = ''
+        for j in self.tasks:
+            if j[0] not in USER_ANWSERS.keys():
+                USER_ANWSERS[j[0]] = ''
+
         for i in USER_ANWSERS.values():
             if i != '':
                 user_anws += f'{i}#####SEPORATOR#####'
@@ -65,7 +73,8 @@ class Solving(QWidget):
                 user_anws += f' #####SEPORATOR#####'
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
-        testid = list(cur.execute(f'''SELECT id FROM tests WHERE testname = {self.testname}''').fetchone())[0]
+        print(self.id)
+        testid = list(cur.execute(f'''SELECT id FROM tests WHERE testname = "{self.testname}"''').fetchone())[0]
         cur.execute(f'''INSERT INTO tests_solutions (testid, userid, "wrong_anwsers", "right_anwsers", 
         "anwsers", "date") VALUES ({testid}, {self.id}, "", "",
         "{user_anws}", "{dt.datetime.now().strftime("%d.%m.%Y")}")''')

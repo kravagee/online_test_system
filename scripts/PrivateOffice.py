@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QWidget, QFileDialog, QTableWidgetItem, QPushButton
 import AuthorizationWindow
 import expansion
 import MainWindow
+import PrivateStats
 
 class PrivateOffice(QWidget):
     def __init__(self, userid):
@@ -61,15 +62,25 @@ class PrivateOffice(QWidget):
 
 
     def back(self):
+        """Метод для перенаправления на главное окно"""
         self.main = MainWindow.MainWindow(self.id)
         self.main.show()
         self.hide()
 
     def logout(self):
-        pass
+        """Метод для перенаправления на первое окно"""
+        self.autorize = AuthorizationWindow.AuthorizationWindow()
+        self.hide()
+        self.autorize.show()
 
     def check_stats_passed(self, r, c):
-        print(self.passedtests.item(c, 0).text())
+        """Метод для просмотра статистики, решёных пользователем тестов"""
+        self.passed_test_stats = PrivateStats.StatsPass(self.id, self.passedtests.item(c, 0).text())
+        self.hide()
+        self.passed_test_stats.show()
 
     def check_stats_created(self, r, c):
-        print(self.createdtests.item(c, 0).text())
+        """Метод для просмотра статистики, созданных пользователем тестов"""
+        self.CreatedTestStat = PrivateStats.CreatedTestStat(self.id, self.createdtests.item(c, 0).text())
+        self.hide()
+        self.CreatedTestStat.show()

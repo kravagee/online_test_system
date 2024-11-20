@@ -9,10 +9,11 @@ import expansion
 
 
 class ResultWindow(QWidget):
-    def __init__(self, userid, anwsers, tasks):
+    def __init__(self, userid, anwsers, tasks, testname):
         super().__init__()
         uic.loadUi('../ui/StatisticFirst.ui', self)
         self.id = userid
+        self.testname = testname
 
         self.rights = []
         self.wrongs = []
@@ -35,8 +36,12 @@ class ResultWindow(QWidget):
 
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
-        query = f'''UPDATE test_solutions SET wrong_anwsers = "{"".join(self.wrongs)}" AND 
-        right_anwsers = "{"".join(self.rights)}"'''
+        testid = cur.execute(f'''SELECT id FROM tests WHERE testname = "{self.testname}"''').fetchone()[0]
+        query = f'''UPDATE tests_solutions SET wrong_anwsers = "{" ".join([str(i) for i in self.wrongs])}"
+         WHERE userid = {self.id} AND testid = {testid}'''
+        cur.execute(query)
+        query = f'''UPDATE tests_solutions SET right_anwsers = "{" ".join([str(i) for i in self.rights])}" 
+        WHERE userid = {self.id} AND testid = {testid}'''
         cur.execute(query)
         con.commit()
         con.close()
@@ -44,6 +49,7 @@ class ResultWindow(QWidget):
         self.backbtn.clicked.connect(self.back)
 
     def back(self):
+        """Метод для перенаправления на главное окно"""
         self.main = MainWindow.MainWindow(self.id)
         self.main.show()
         self.hide()

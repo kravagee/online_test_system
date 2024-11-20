@@ -15,6 +15,7 @@ class Registration(QWidget):
         self.back_button.clicked.connect(self.back)
 
     def register(self):
+        """Метод для регистрации"""
         con = sqlite3.connect('../db/users.db')
         cur = con.cursor()
         log = self.login.text()
@@ -30,12 +31,13 @@ class Registration(QWidget):
                 id = cur.execute(f'''SELECT id FROM users WHERE username="{log}"''').fetchall()[0]
                 con.commit()
                 con.close()
-                self.mainwind = MainWindow.MainWindow(id)
+                self.mainwind = MainWindow.MainWindow(id[0])
                 self.hide()
                 self.mainwind.show()
 
 
     def back(self):
+        """Метод для перенаправления на первое окно"""
         self.author = AuthorizationWindow.AuthorizationWindow()
         self.author.show()
         self.hide()
