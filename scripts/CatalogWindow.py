@@ -1,10 +1,10 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton
 import MainWindow
 import Solving
 import CatalogUI
+
 
 class CatalogWindow(QWidget, CatalogUI.Ui_Form):
     def __init__(self, userid):
@@ -82,7 +82,7 @@ class CatalogWindow(QWidget, CatalogUI.Ui_Form):
                     result.append(row)
             else:
                 result.append(row)
-        self.update_table(result, cur)
+        self.update_table(result)
 
         con.close()
 

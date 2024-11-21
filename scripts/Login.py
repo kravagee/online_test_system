@@ -1,11 +1,11 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 import AuthorizationWindow
 import expansion
 import MainWindow
 import LoginUI
+
 
 class Login(QWidget, LoginUI.Ui_Form):
     def __init__(self):

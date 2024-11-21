@@ -1,6 +1,5 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget, QFileDialog, QMessageBox
 import MainWindow

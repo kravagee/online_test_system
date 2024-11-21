@@ -2,7 +2,6 @@ import Registration
 import Login
 import AuthorizationUI
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget
 
 

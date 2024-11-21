@@ -1,13 +1,13 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QWidget
 import datetime as dt
 import ResultWindow
 import TaskUI
+import SolvingUI
 
-USER_ANWSERS = dict()
+USER_ANSWERS = dict()
 
 
 class Task(QWidget, TaskUI.Ui_Form):
@@ -24,13 +24,13 @@ class Task(QWidget, TaskUI.Ui_Form):
 
     def save(self):
         """Метод для сохранения ответов пользователя в словарь"""
-        USER_ANWSERS[self.question[0]] = self.anwser.toPlainText()
+        USER_ANSWERS[self.question[0]] = self.anwser.toPlainText()
 
 
-class Solving(QWidget):
+class Solving(QWidget, SolvingUI.Ui_Form):
     def __init__(self, userid, testname):
         super().__init__()
-        uic.loadUi('../ui/Solving.ui', self)
+        self.setupUi(self)
         self.id = userid
         self.testname = testname
 
@@ -53,8 +53,8 @@ class Solving(QWidget):
     def back(self):
         """Метод для завершения теста"""
         self.db_work()
-        self.res = ResultWindow.ResultWindow(self.id, USER_ANWSERS, self.tasks, self.testname)
-        USER_ANWSERS.clear()
+        self.res = ResultWindow.ResultWindow(self.id, USER_ANSWERS, self.tasks, self.testname)
+        USER_ANSWERS.clear()
         self.hide()
         self.res.show()
 
@@ -62,10 +62,10 @@ class Solving(QWidget):
         """Метод для работы с базой данных при завершении теста"""
         user_anws = ''
         for j in self.tasks:
-            if j[0] not in USER_ANWSERS.keys():
-                USER_ANWSERS[j[0]] = ''
+            if j[0] not in USER_ANSWERS.keys():
+                USER_ANSWERS[j[0]] = ''
 
-        for i in USER_ANWSERS.values():
+        for i in USER_ANSWERS.values():
             if i != '':
                 user_anws += f'{i}#####SEPORATOR#####'
             else:

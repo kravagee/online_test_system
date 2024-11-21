@@ -1,11 +1,12 @@
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QWidget,QTableWidgetItem
-
+from PyQt6.QtWidgets import QWidget, QTableWidgetItem
 import MainWindow
 import PrivateOffice
 import StatisticFirstUI
+import CreatedTestStatsUI
+
 
 class StatsPass(QWidget, StatisticFirstUI.Ui_Form):
     def __init__(self, userid, testname):
@@ -39,15 +40,15 @@ class StatsPass(QWidget, StatisticFirstUI.Ui_Form):
 
     def back(self):
         """Метод для перенаправления на окно личного кабинета"""
-        self.privateOffice = PrivateOffice.PrivateOffice(self.id)
+        self.private_office = PrivateOffice.PrivateOffice(self.id)
         self.hide()
-        self.privateOffice.show()
+        self.private_office.show()
 
 
-class CreatedTestStat(QWidget):
+class CreatedTestStat(QWidget, CreatedTestStatsUI.Ui_Form):
     def __init__(self, userid, testname):
         super().__init__()
-        uic.loadUi('../ui/CreatedTestStats.ui', self)
+        self.setupUi(self)
         self.id = userid
         self.testname = testname
 
@@ -62,7 +63,10 @@ class CreatedTestStat(QWidget):
             row = list(data[i])
             row[0] = cur.execute(f'SELECT username FROM users WHERE id={row[0]}').fetchone()[0]
             row[1] = ', '.join(row[1].split(' '))
-            row[2] = ', '.join(row[2].split(' '))
+            if isinstance(row[2], str):
+                row[2] = ', '.join(row[2].split(' '))
+            else:
+                row[2] = str(row[2])
             result.append(row)
         self.update_table(result)
         con.close()
@@ -86,7 +90,10 @@ class CreatedTestStat(QWidget):
                     row = list(data[i])
                     row[0] = cur.execute(f'SELECT username FROM users WHERE id={row[0]}').fetchone()[0]
                     row[1] = ', '.join(row[1].split(' '))
-                    row[2] = ', '.join(row[2].split(' '))
+                    if isinstance(row[2], str):
+                        row[2] = ', '.join(row[2].split(' '))
+                    else:
+                        row[2] = str(row[2])
                     result.append(row)
                 self.update_table(result)
             else:
@@ -107,7 +114,10 @@ class CreatedTestStat(QWidget):
             row = list(data[i])
             row[0] = cur.execute(f'SELECT username FROM users WHERE id={row[0]}').fetchone()[0]
             row[1] = ', '.join(row[1].split(' '))
-            row[2] = ', '.join(row[2].split(' '))
+            if isinstance(row[2], str):
+                row[2] = ', '.join(row[2].split(' '))
+            else:
+                row[2] = str(row[2])
             result.append(row)
         if self.sortby.currentText() == 'Имя пользователя':
             result = sorted(result, key=lambda x: x[0])
@@ -127,7 +137,6 @@ class CreatedTestStat(QWidget):
                 for j, val in enumerate(elem):
                     self.tableWidget.setItem(i, j, QTableWidgetItem(str(val)))
             self.tableWidget.setHorizontalHeaderLabels(self.titles)
-
 
     def back(self):
         """Метод для перенаправления на главное окно"""

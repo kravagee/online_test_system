@@ -1,11 +1,11 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton
 import AuthorizationWindow
 import MainWindow
 import PrivateStats
 import PrivateOfficeUI
+
 
 class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
     def __init__(self, userid):
@@ -60,7 +60,6 @@ class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
         self.backbtn.clicked.connect(self.back)
         self.logoutbtn.clicked.connect(self.logout)
 
-
     def back(self):
         """Метод для перенаправления на главное окно"""
         self.main = MainWindow.MainWindow(self.id)
@@ -81,6 +80,6 @@ class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
 
     def check_stats_created(self, r, c):
         """Метод для просмотра статистики, созданных пользователем тестов"""
-        self.CreatedTestStat = PrivateStats.CreatedTestStat(self.id, self.createdtests.item(c, 0).text())
+        self.crated_test_stats = PrivateStats.CreatedTestStat(self.id, self.createdtests.item(c, 0).text())
         self.hide()
-        self.CreatedTestStat.show()
+        self.crated_test_stats.show()
