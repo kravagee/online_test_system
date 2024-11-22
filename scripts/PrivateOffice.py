@@ -1,6 +1,6 @@
 import sqlite3
 
-from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton
+from PyQt6.QtWidgets import QWidget, QTableWidgetItem, QPushButton, QTableWidget, QAbstractItemView
 import AuthorizationWindow
 import MainWindow
 import PrivateStats
@@ -24,12 +24,13 @@ class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
             creator_id = row[1]
             row[1] = cur.execute(f'SELECT username FROM users WHERE id={row[1]}').fetchone()[0]
             temp = list(cur.execute(f'''SELECT users_who_passed FROM tests WHERE testname="{row[0]}"''').fetchone())
-            if temp[0] != None:
+            if temp[0] is None:
                 print(temp[0].split(', '))
                 if not (str(self.id) in temp[0].split(', ')):
                     data.remove(data_cop[i])
                 if creator_id == self.id:
                     result.append(row)
+
         if len(result) > 0:
             self.createdtests.setRowCount(len(result))
             self.createdtests.setColumnCount(len(result[0]) + 1)
@@ -42,19 +43,26 @@ class PrivateOffice(QWidget, PrivateOfficeUI.Ui_Form):
                     pushButton.clicked.connect(lambda r=j, c=i: self.check_stats_created(r, c))
                     self.createdtests.setCellWidget(i, 4, pushButton)
             self.createdtests.setHorizontalHeaderLabels(self.titles)
+            self.createdtests.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
 
         if len(data) > 0:
-            self.passedtests.setRowCount(len(data))
-            self.passedtests.setColumnCount(len(data[0]) + 1)
+            result_passed = []
+            for i in range(len(data)):
+                row = list(data[i])
+                row[1] = cur.execute(f'''SELECT username FROM users WHERE id = {row[1]}''').fetchone()[0]
+                result_passed.append(row)
+            self.passedtests.setRowCount(len(result_passed))
+            self.passedtests.setColumnCount(len(result_passed[0]) + 1)
             self.titles = ['Название теста', 'Создатель', 'Кол-во просмотров', 'Дата создания']
             self.titles.append('')
-            for i, elem in enumerate(data):
+            for i, elem in enumerate(result_passed):
                 for j, val in enumerate(elem):
                     self.passedtests.setItem(i, j, QTableWidgetItem(str(val)))
                     pushButton = QPushButton('Посмотреть статистику')
                     pushButton.clicked.connect(lambda r=j, c=i: self.check_stats_passed(r, c))
                     self.passedtests.setCellWidget(i, 4, pushButton)
             self.passedtests.setHorizontalHeaderLabels(self.titles)
+            self.passedtests.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         con.close()
 
         self.backbtn.clicked.connect(self.back)

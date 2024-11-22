@@ -6,6 +6,7 @@ import expansion
 import MainWindow
 import RegistrationUI
 
+
 class Registration(QWidget, RegistrationUI.Ui_Form):
     def __init__(self):
         super().__init__()
@@ -34,7 +35,6 @@ class Registration(QWidget, RegistrationUI.Ui_Form):
                 self.mainwind = MainWindow.MainWindow(id[0])
                 self.hide()
                 self.mainwind.show()
-
 
     def back(self):
         """Метод для перенаправления на первое окно"""

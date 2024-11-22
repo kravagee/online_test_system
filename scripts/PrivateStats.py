@@ -1,6 +1,5 @@
 import sqlite3
 
-from PyQt6 import uic
 from PyQt6.QtWidgets import QWidget, QTableWidgetItem
 import MainWindow
 import PrivateOffice
@@ -23,8 +22,6 @@ class StatsPass(QWidget, StatisticFirstUI.Ui_Form):
 
         print(cur.execute(f'''SELECT wrong_anwsers, right_anwsers FROM tests_solutions 
                 WHERE testid = {testid} AND userid = "{self.id}"''').fetchone())
-
-        print(type(self.wrongs), type(self.rights))
 
         if self.rights and self.wrongs:
             self.wrong.setText(str(len([str(i) for i in str(self.wrongs).split(" ")])))

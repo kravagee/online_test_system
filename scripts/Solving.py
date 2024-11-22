@@ -49,7 +49,6 @@ class Solving(QWidget, SolvingUI.Ui_Form):
 
         self.backbtn.clicked.connect(self.back)
 
-
     def back(self):
         """Метод для завершения теста"""
         self.db_work()

@@ -5,6 +5,7 @@ import CreateWindow
 import PrivateOffice
 import MainUI
 
+
 class MainWindow(QWidget, MainUI.Ui_Form):
     def __init__(self, userid):
         super().__init__()
