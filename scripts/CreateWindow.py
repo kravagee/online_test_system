@@ -75,7 +75,7 @@ class CreateWindow(QWidget, CreateWindowUI.Ui_Form):
 
     def next_task(self):
         """Метод для переключения между задачами теста"""
-        try:
+        if self.question.toPlainText() != '' and self.anwser.toPlainText() != '':
             self.tasks[self.counter] = (self.question.toPlainText(), self.anwser.toPlainText(), self.fname)
             self.anwser.clear()
             self.question.clear()
@@ -83,7 +83,7 @@ class CreateWindow(QWidget, CreateWindowUI.Ui_Form):
             self.counter += 1
             self.task_count.display(self.counter)
             self.statusbar.setText('')
-        except:
+        else:
             self.message()
             self.statusbar.setText('Недостаточно данных!')
 
